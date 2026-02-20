@@ -1,4 +1,4 @@
-# Renting_Platform
+# SilmpliRent
 
 ## Members and the project
 - Members
