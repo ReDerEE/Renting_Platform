@@ -1,13 +1,1733 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Button Kit</title>
+  <meta charset="UTF-8" />
+  <title>SilmpliRent Prototype</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
+      --border: #e5e7eb;
+      --text: #111827;
+      --muted: #6b7280;
+      --primary: #0148C0;
+      --primary-hover: #013aa0;
+      --primary-pressed: #012b7a;
+      --danger: #dc2626;
+      --success: #16a34a;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-width: 1280px;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, textarea, select {
+      font: inherit;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 8px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .brand-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: var(--primary);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-link {
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .nav-link:hover {
+      background: #eef4ff;
+      color: var(--primary);
+    }
+
+    .nav-link.active {
+      background: #e8f0ff;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .search-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 16px;
+      min-width: 260px;
+      color: var(--muted);
+    }
+
+    .container {
+      width: 1200px;
+      margin: 0 auto;
+      padding: 28px 8px 60px;
+      flex: 1;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #0148C0 100%);
+      color: white;
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: 40px;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      margin: 0 0 20px;
+      color: rgba(255,255,255,0.88);
+      max-width: 720px;
+      line-height: 1.5;
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 22px;
+      padding: 22px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .hero-stat {
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .hero-stat .label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 6px;
+    }
+
+    .hero-stat .value {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-primary:active {
+      background: var(--primary-pressed);
+      transform: translateY(1px);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: #eef4ff;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--primary);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(1,72,192,0.08);
+    }
+
+    .btn-danger {
+      background: #fff1f2;
+      color: var(--danger);
+      border: 1px solid #fecdd3;
+    }
+
+    .btn-danger:hover {
+      background: #ffe4e6;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      gap: 16px;
+    }
+
+    .toolbar h2, .section-title {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .filter-pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .filter-pill.active,
+    .filter-pill:hover {
+      background: #e8f0ff;
+      color: var(--primary);
+      border-color: #bfd6ff;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .item-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: 0.2s ease;
+      position: relative;
+    }
+
+    .item-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .item-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      background: #dbeafe;
+    }
+
+    .item-content {
+      padding: 16px;
+    }
+
+    .item-topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .item-title {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .item-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    .item-meta {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 12px;
+      line-height: 1.45;
+    }
+
+    .item-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mini-badge {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: white;
+      cursor: pointer;
+      font-size: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s ease;
+    }
+
+    .icon-btn:hover {
+      background: #fff7e8;
+      border-color: #ffd48a;
+    }
+
+    .icon-btn.active {
+      color: #FFA500;
+      border-color: #FFA500;
+      background: #fff7e8;
+    }
+
+    .item-page-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .gallery-main {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      border-radius: 18px;
+      display: block;
+      background: #dbeafe;
+      margin-bottom: 16px;
+    }
+
+    .thumb-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .thumb {
+      width: 100%;
+      height: 92px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      background: #e5e7eb;
+    }
+
+    .thumb.active {
+      border-color: var(--primary);
+    }
+
+    .item-headline {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 12px;
+    }
+
+    .item-headline h1 {
+      margin: 0;
+      font-size: 32px;
+      line-height: 1.15;
+    }
+
+    .price-xl {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .detail-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 22px 0;
+    }
+
+    .detail {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .detail .k {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .detail .v {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .item-description {
+      line-height: 1.65;
+      color: #374151;
+      white-space: pre-line;
+    }
+
+    .action-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .seller-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 24px;
+      padding: 18px;
+      background: var(--surface-2);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+    }
+
+    .avatar {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #dbeafe;
+      display: block;
+    }
+
+    .seller-info h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+    }
+
+    .seller-info p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+    }
+
+    .profile-sidebar .cover {
+      width: 100%;
+      height: 160px;
+      border-radius: 18px;
+      object-fit: cover;
+      background: #dbeafe;
+      display: block;
+      margin-bottom: -42px;
+    }
+
+    .profile-card {
+      padding-top: 0;
+    }
+
+    .profile-avatar-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .profile-avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      border: 4px solid white;
+      background: white;
+      object-fit: cover;
+    }
+
+    .profile-name {
+      text-align: center;
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .profile-sub {
+      text-align: center;
+      color: var(--muted);
+      margin: 8px 0 18px;
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .profile-stat {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .profile-stat .num {
+      font-weight: 800;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .profile-stat .lbl {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .messages-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 24px;
+      height: 720px;
+    }
+
+    .conversation-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow: auto;
+      max-height: 650px;
+    }
+
+    .conversation-item {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .conversation-item.active,
+    .conversation-item:hover {
+      background: #e8f0ff;
+      border-color: #bfd6ff;
+    }
+
+    .conversation-item h4 {
+      margin: 0 0 6px;
+      font-size: 15px;
+    }
+
+    .conversation-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .chat-area {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+
+    .chat-thread {
+      flex: 1;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-right: 6px;
+    }
+
+    .bubble {
+      max-width: 70%;
+      padding: 14px 16px;
+      border-radius: 18px;
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    .bubble.incoming {
+      background: #f3f4f6;
+      color: #111827;
+      align-self: flex-start;
+      border-bottom-left-radius: 6px;
+    }
+
+    .bubble.outgoing {
+      background: #0148C0;
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 6px;
+    }
+
+    .chat-compose {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .chat-compose input {
+      flex: 1;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      background: var(--surface-2);
+      outline: none;
+    }
+
+    .upload-layout {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 24px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .form-field label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #374151;
+    }
+
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: var(--surface-2);
+      outline: none;
+    }
+
+    .form-field textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+.full-width {
+  grid-column: span 2;
+}
+
+    .dropzone {
+      border: 2px dashed #bfd6ff;
+      background: #f8fbff;
+      border-radius: 20px;
+      padding: 26px;
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .upload-preview {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .upload-preview img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 16px;
+      background: #dbeafe;
+    }
+
+    .auth-wrap {
+      width: 520px;
+      margin: 32px auto 0;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--muted);
+      border-radius: 14px;
+      padding: 14px 16px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .tab-btn.active {
+      background: #e8f0ff;
+      color: var(--primary);
+      border-color: #bfd6ff;
+    }
+
+    .auth-panel {
+      display: none;
+    }
+
+    .auth-panel.active {
+      display: block;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+      margin-top: 26px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal {
+      width: 520px;
+      background: white;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .modal-head {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .modal-head h3 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .modal-body {
+      padding: 22px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      padding-top: 14px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand" data-nav="discover">
+          <span class="brand-badge">S</span>
+          <span>SilmpliRent</span>
+        </div>
 
-<script src="button-kit.js"></script>
+        <nav class="nav-links">
+          <div class="nav-link active" data-nav="discover">Discover</div>
+          <div class="nav-link" data-nav="messages">Messages</div>
+          <div class="nav-link" data-nav="upload">Upload</div>
+          <div class="nav-link" data-nav="profile">Profile</div>
+          <div class="nav-link" data-nav="auth">Auth</div>
+        </nav>
 
+        <div class="topbar-actions">
+          <div class="search-pill">Search items, brands, locations</div>
+          <button class="btn btn-secondary" data-nav="auth">Login</button>
+          <button class="btn btn-primary" data-nav="upload">Post Item</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="page-discover" class="page active">
+        <div class="hero">
+          <div>
+            <h1>Find the right item faster.</h1>
+            <p>
+              
+            </p>
+            <div style="display:flex; gap:12px; margin-top:22px;">
+              <button class="btn btn-primary" data-nav="upload">Post new item</button>
+              <button class="btn btn-secondary" id="heroBrowseBtn">Browse listings</button>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <div style="font-size:14px; color:rgba(255,255,255,0.78); margin-bottom:8px;">Marketplace overview</div>
+            <div style="font-size:24px; font-weight:700; margin-bottom:12px;">Today’s trending picks</div>
+            <div style="color:rgba(255,255,255,0.85); line-height:1.55;">
+              Electronics, fashion and gaming gear in a single, clean browsing experience.
+            </div>
+            <div class="hero-stats">
+              <div class="hero-stat">
+                <div class="label">Listings</div>
+                <div class="value">128</div>
+              </div>
+              <div class="hero-stat">
+                <div class="label">Sellers</div>
+                <div class="value">34</div>
+              </div>
+              <div class="hero-stat">
+                <div class="label">Messages</div>
+                <div class="value">16</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <h2>Discover items</h2>
+          <button class="btn btn-ghost" id="shuffleBtn">Shuffle products</button>
+        </div>
+
+        <div class="filters" id="filters"></div>
+        <div class="cards-grid" id="discoverGrid"></div>
+      </section>
+
+      <section id="page-item" class="page">
+        <div class="toolbar">
+          <h2>Item page</h2>
+          <button class="btn btn-ghost" data-nav="discover">← Back to discover</button>
+        </div>
+
+        <div class="item-page-grid">
+          <div class="panel">
+            <img id="mainGalleryImage" class="gallery-main" src="" alt="Main item image">
+            <div class="thumb-row" id="thumbRow"></div>
+          </div>
+
+          <div class="panel">
+            <div class="item-headline">
+              <div>
+                <h1 id="itemTitle">Item title</h1>
+                <div class="muted" id="itemMetaLine">Listed today · Tallinn, Estonia</div>
+              </div>
+              <div class="price-xl" id="itemPrice">€0</div>
+            </div>
+
+            <div class="detail-list">
+              <div class="detail">
+                <div class="k">Category</div>
+                <div class="v" id="itemCategory">Electronics</div>
+              </div>
+              <div class="detail">
+                <div class="k">Condition</div>
+                <div class="v" id="itemCondition">Used</div>
+              </div>
+              <div class="detail">
+                <div class="k">Views</div>
+                <div class="v" id="itemViews">123</div>
+              </div>
+              <div class="detail">
+                <div class="k">Location</div>
+                <div class="v" id="itemLocation">Tallinn</div>
+              </div>
+            </div>
+
+            <div class="section-title" style="font-size:18px; margin-bottom:12px;">Description</div>
+            <div class="item-description" id="itemDescription"></div>
+
+            <div class="action-stack">
+              <button class="btn btn-primary" id="contactSellerButton">Contact Seller</button>
+              <div style="display:flex; gap:12px;">
+                <button class="btn btn-secondary" id="shareItemButton">Share</button>
+                <button class="btn btn-secondary" id="saveItemButton">Save Item</button>
+                <button class="btn btn-danger" id="reportItemButton">Report</button>
+              </div>
+            </div>
+
+            <div class="seller-card" id="sellerCard">
+              <img class="avatar" id="sellerAvatar" src="" alt="Seller avatar">
+              <div class="seller-info" style="flex:1;">
+                <h3 id="sellerName">Seller name</h3>
+                <p id="sellerMeta">Member since 2023 · 8 active listings</p>
+              </div>
+              <button class="btn btn-ghost" id="openProfileButton">View profile</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-profile" class="page">
+        <div class="toolbar">
+          <h2>Seller profile</h2>
+          <button class="btn btn-ghost" data-nav="discover">← Back to discover</button>
+        </div>
+
+        <div class="profile-layout">
+          <div class="profile-sidebar">
+            <div class="panel profile-card">
+              <img class="cover" id="profileCover" src="" alt="Profile cover">
+              <div class="profile-avatar-wrap">
+                <img class="profile-avatar" id="profileAvatar" src="" alt="Profile avatar">
+              </div>
+              <h3 class="profile-name" id="profileName">Seller</h3>
+              <div class="profile-sub" id="profileSub">Tallinn · Joined 2023</div>
+              <div style="display:flex; gap:10px; justify-content:center;">
+                <button class="btn btn-primary" id="profileMessageBtn">Message</button>
+                <button class="btn btn-secondary" id="profileFollowBtn">Follow</button>
+              </div>
+              <div class="profile-stats">
+                <div class="profile-stat">
+                  <div class="num" id="profileListings">8</div>
+                  <div class="lbl">Listings</div>
+                </div>
+                <div class="profile-stat">
+                  <div class="num">4.9</div>
+                  <div class="lbl">Rating</div>
+                </div>
+                <div class="profile-stat">
+                  <div class="num">152</div>
+                  <div class="lbl">Followers</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="toolbar" style="margin-bottom:20px;">
+              <h2 style="font-size:22px;">Active listings</h2>
+              <button class="btn btn-ghost">Sort by newest</button>
+            </div>
+            <div class="cards-grid" id="profileGrid"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-messages" class="page">
+        <div class="toolbar">
+          <h2>Messages</h2>
+          <button class="btn btn-secondary" id="newChatBtn">New message</button>
+        </div>
+
+        <div class="messages-layout">
+          <div class="panel">
+            <div style="font-size:18px; font-weight:700; margin-bottom:16px;">Conversations</div>
+            <div class="conversation-list" id="conversationList"></div>
+          </div>
+
+          <div class="panel chat-area">
+            <div class="chat-header">
+              <div>
+                <div style="font-size:20px; font-weight:700;" id="chatTitle">Open a conversation</div>
+                <div class="muted" id="chatSubtitle">Prototype inbox</div>
+              </div>
+              <button class="btn btn-ghost">Archive</button>
+            </div>
+
+            <div class="chat-thread" id="chatThread"></div>
+
+            <div class="chat-compose">
+              <input id="chatInput" placeholder="Write a message..." />
+              <button class="btn btn-primary" id="sendMessageBtn">Send</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-upload" class="page">
+        <div class="toolbar">
+          <h2>Upload item</h2>
+          <button class="btn btn-secondary" id="previewUploadBtn">Preview listing</button>
+        </div>
+
+        <div class="upload-layout">
+          <div class="panel">
+            <div class="dropzone">
+              <div style="font-size:22px; font-weight:700; margin-bottom:8px;">Drag photos here</div>
+              <div>Or use the prototype previews below.</div>
+            </div>
+
+            <div class="upload-preview">
+              <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80" alt="">
+              <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=80" alt="">
+              <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80" alt="">
+              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80" alt="">
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="form-field">
+              <label>Title</label>
+              <input value="Sony WH-1000XM5 Headphones" />
+            </div>
+
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Category</label>
+                <select>
+                  <option>Electronics</option>
+                  <option>Fashion</option>
+                  <option>Gaming</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Condition</label>
+                <select>
+                  <option>Like new</option>
+                  <option>Used</option>
+                  <option>Refurbished</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Price</label>
+                <input value="249" />
+              </div>
+              <div class="form-field full-width">
+                <label>Location</label>
+                <input type="text" value="Tallinn, Estonia">
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label>Description</label>
+              <textarea>Premium over-ear headphones in excellent condition. Includes case, charging cable and original packaging. Perfect for commuting, travel and focused work.</textarea>
+            </div>
+
+            <div style="display:flex; gap:12px; margin-top:10px;">
+              <button class="btn btn-primary" id="publishBtn">Publish Item</button>
+              <button class="btn btn-secondary">Save Draft</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="page-auth" class="page">
+        <div class="auth-wrap">
+          <div class="panel">
+            <div class="tabs">
+              <button class="tab-btn active" data-auth-tab="login">Login</button>
+              <button class="tab-btn" data-auth-tab="register">Sign Up</button>
+            </div>
+
+            <div class="auth-panel active" id="auth-login">
+              <div class="form-field">
+                <label>Email</label>
+                <input type="email" value="Simpli@rent.pro">
+              </div>
+              <div class="form-field">
+                <label>Password</label>
+                <input type="password" value="12345678">
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+                <button class="btn btn-primary">Login</button>
+                <button class="btn btn-ghost">Forgot password?</button>
+              </div>
+            </div>
+
+            <div class="auth-panel" id="auth-register">
+              <div class="form-field">
+                <label>Username</label>
+                <input value="rinat_design">
+              </div>
+              <div class="form-field">
+                <label>Email</label>
+                <input type="email" value="Simpli@rent.pro">
+              </div>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label>Password</label>
+                  <input type="password" value="12345678">
+                </div>
+                <div class="form-field">
+                  <label>Repeat Password</label>
+                  <input type="password" value="12345678">
+                </div>
+              </div>
+              <div style="display:flex; justify-content:flex-start; margin-top:10px;">
+                <button class="btn btn-primary">Create account</button>
+              </div>
+            </div>
+
+            <div class="footer-note">
+              This is a design prototype.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="reportModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>Report Item</h3>
+        <button class="icon-btn" id="closeReportModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-field">
+          <label>Reason</label>
+          <select>
+            <option>Spam</option>
+            <option>Fake listing</option>
+            <option>Inappropriate content</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Details</label>
+          <textarea placeholder="Please describe the issue..."></textarea>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="cancelReportBtn">Cancel</button>
+          <button class="btn btn-primary" id="submitReportBtn">Submit Report</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DATA = {
+      seller: {
+        id: 1,
+        username: "test_user",
+        fullName: "Test User",
+        joined: "Joined in 2029",
+        location: "Tallinn, Estonia",
+        activeListings: 8,
+        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+        cover: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1400&q=80"
+      },
+      items: [
+        {
+          id: 101,
+          title: "Sony Headphones",
+          price: 249,
+          category: "Electronics",
+          condition: "Like new",
+          location: "Tallinn, Estonia",
+          views: 184,
+          sellerId: 1,
+          badge: "Trending",
+          description: "Premium over-ear headphones in excellent condition.\n\nIncludes case, charging cable and original packaging.\n\nPerfect for travel, work and everyday listening.",
+          images: [
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1577174881658-0f30ed549adc?auto=format&fit=crop&w=1200&q=80"
+          ]
+        },
+        {
+          id: 102,
+          title: "Nike Dunk Low Retro Sneakers",
+          price: 115,
+          category: "Fashion",
+          condition: "Used",
+          location: "Riga, Latvia",
+          views: 95,
+          sellerId: 1,
+          badge: "Hot",
+          description: "Classic everyday sneakers with a clean low-top look.\n\nGood used condition, no box included.",
+          images: [
+            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?auto=format&fit=crop&w=1200&q=80"
+          ]
+        },
+        {
+          id: 103,
+          title: "PlayStation 5 DualSense Controller",
+          price: 59,
+          category: "Gaming",
+          condition: "New",
+          location: "Vilnius, Lithuania",
+          views: 73,
+          sellerId: 1,
+          badge: "New",
+          description: "Original DualSense controller, sealed box.\n\nWhite edition, perfect for PS5 gamers.",
+          images: [
+            "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1622297845775-5ff3fef71d13?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1621259182978-fbf93132d53d?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1607853202273-797f1c22a38e?auto=format&fit=crop&w=1200&q=80"
+          ]
+        },
+        {
+          id: 104,
+          title: "Apple Watch Series 8",
+          price: 289,
+          category: "Electronics",
+          condition: "Excellent",
+          location: "Helsinki, Finland",
+          views: 121,
+          sellerId: 1,
+          badge: "Popular",
+          description: "Clean Apple Watch with charging cable and strap.\n\nBattery health is strong, screen has no visible scratches.",
+          images: [
+            "https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?auto=format&fit=crop&w=1200&q=80"
+          ]
+        },
+        {
+          id: 105,
+          title: "Vintage Camera Canon AE-1",
+          price: 340,
+          category: "Photography",
+          condition: "Used",
+          location: "Tallinn, Estonia",
+          views: 61,
+          sellerId: 1,
+          badge: "Rare",
+          description: "Beautiful vintage camera for collectors and photographers.\n\nWorks well and looks great on display.",
+          images: [
+            "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1495707902641-75cac588d2e9?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?auto=format&fit=crop&w=1200&q=80"
+          ]
+        },
+        {
+          id: 106,
+          title: "Mechanical Keyboard RGB",
+          price: 79,
+          category: "Gaming",
+          condition: "Like new",
+          location: "Tartu, Estonia",
+          views: 88,
+          sellerId: 1,
+          badge: "Gaming",
+          description: "Compact mechanical keyboard with RGB backlight.\n\nSmooth switches and clean desk aesthetic.",
+          images: [
+            "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&w=1200&q=80"
+          ]
+        },
+        {
+          id: 107,
+          title: "Minimal Desk Lamp",
+          price: 34,
+          category: "Home",
+          condition: "New",
+          location: "Pärnu, Estonia",
+          views: 47,
+          sellerId: 1,
+          badge: "Home",
+          description: "Soft warm light and clean modern design.\n\nPerfect for workspaces and bedside tables.",
+          images: [
+            "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1484101403633-562f891dc89a?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80"
+          ]
+        },
+        {
+          id: 108,
+          title: "MacBook Air M2 13”",
+          price: 920,
+          category: "Electronics",
+          condition: "Excellent",
+          location: "Tallinn, Estonia",
+          views: 205,
+          sellerId: 1,
+          badge: "Top pick",
+          description: "Lightweight laptop in excellent condition.\n\nGreat battery life, ideal for design, studies and remote work.",
+          images: [
+            "https://images.unsplash.com/photo-1517336714739-489689fd1ca8?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80",
+            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80"
+          ]
+        }
+      ],
+      conversations: [
+        {
+          id: 1,
+          title: "Cristiano Ronaldo",
+          subtitle: "Sony WH-1000XM5 Headphones",
+          messages: [
+            { from: "them", text: "Hi! Are the headphones still available?" },
+            { from: "me", text: "Yes, they are available." },
+            { from: "them", text: "Great. Can you do €230?" }
+          ]
+        },
+        {
+          id: 2,
+          title: "Lionel Messi",
+          subtitle: "MacBook Air M2 13”",
+          messages: [
+            { from: "them", text: "Can you include the charger?" },
+            { from: "me", text: "Yes, original charger is included." }
+          ]
+        },
+        {
+          id: 3,
+          title: "Karl Design",
+          subtitle: "Desk Lamp",
+          messages: [
+            { from: "them", text: "You are so handsome, shall we get to know each other? " },
+            { from: "me", text: "Hell no." }
+          ]
+        }
+      ]
+    };
+
+    const state = {
+      page: "discover",
+      currentItemId: 101,
+      currentConversationId: 1,
+      favorites: new Set([103])
+    };
+
+    const pages = document.querySelectorAll(".page");
+    const navLinks = document.querySelectorAll("[data-nav]");
+    const discoverGrid = document.getElementById("discoverGrid");
+    const profileGrid = document.getElementById("profileGrid");
+    const filters = document.getElementById("filters");
+    const thumbRow = document.getElementById("thumbRow");
+    const conversationList = document.getElementById("conversationList");
+    const chatThread = document.getElementById("chatThread");
+    const chatTitle = document.getElementById("chatTitle");
+    const chatSubtitle = document.getElementById("chatSubtitle");
+    const chatInput = document.getElementById("chatInput");
+
+    function showPage(pageName) {
+      state.page = pageName;
+      pages.forEach(p => p.classList.toggle("active", p.id === "page-" + pageName));
+      navLinks.forEach(link => link.classList.toggle("active", link.dataset.nav === pageName));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function getItemById(id) {
+      return DATA.items.find(item => item.id === id);
+    }
+
+    function renderFilters() {
+      const categories = ["All", ...new Set(DATA.items.map(i => i.category))];
+      filters.innerHTML = "";
+      categories.forEach((cat, index) => {
+        const pill = document.createElement("button");
+        pill.className = "filter-pill" + (index === 0 ? " active" : "");
+        pill.textContent = cat;
+        pill.addEventListener("click", () => {
+          document.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("active"));
+          pill.classList.add("active");
+          renderDiscover(cat === "All" ? DATA.items : DATA.items.filter(i => i.category === cat));
+        });
+        filters.appendChild(pill);
+      });
+    }
+
+    function createCard(item) {
+      const card = document.createElement("div");
+      card.className = "item-card";
+      card.innerHTML = `
+        <img class="item-image" src="${item.images[0]}" alt="${item.title}">
+        <div class="item-content">
+          <div class="item-topline">
+            <h3 class="item-title">${item.title}</h3>
+            <div class="item-price">€${item.price}</div>
+          </div>
+          <div class="item-meta">${item.location} · ${item.condition}<br>${item.views} views</div>
+          <div class="item-actions">
+            <span class="mini-badge">${item.badge}</span>
+            <button class="icon-btn ${state.favorites.has(item.id) ? "active" : ""}" title="Save item">♥</button>
+          </div>
+        </div>
+      `;
+
+      card.addEventListener("click", (e) => {
+        if (e.target.classList.contains("icon-btn")) return;
+        openItem(item.id);
+      });
+
+      const favBtn = card.querySelector(".icon-btn");
+      favBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (state.favorites.has(item.id)) {
+          state.favorites.delete(item.id);
+        } else {
+          state.favorites.add(item.id);
+        }
+        favBtn.classList.toggle("active");
+      });
+
+      return card;
+    }
+
+    function renderDiscover(items) {
+      discoverGrid.innerHTML = "";
+      items.forEach(item => discoverGrid.appendChild(createCard(item)));
+    }
+
+    function openItem(itemId) {
+      state.currentItemId = itemId;
+      renderItemPage();
+      showPage("item");
+    }
+
+    function renderItemPage() {
+      const item = getItemById(state.currentItemId);
+      if (!item) return;
+
+      document.getElementById("itemTitle").textContent = item.title;
+      document.getElementById("itemMetaLine").textContent = `Listed today · ${item.location}`;
+      document.getElementById("itemPrice").textContent = `€${item.price}`;
+      document.getElementById("itemCategory").textContent = item.category;
+      document.getElementById("itemCondition").textContent = item.condition;
+      document.getElementById("itemViews").textContent = item.views;
+      document.getElementById("itemLocation").textContent = item.location;
+      document.getElementById("itemDescription").textContent = item.description;
+      document.getElementById("mainGalleryImage").src = item.images[0];
+
+      thumbRow.innerHTML = "";
+      item.images.forEach((src, index) => {
+        const img = document.createElement("img");
+        img.src = src;
+        img.className = "thumb" + (index === 0 ? " active" : "");
+        img.addEventListener("click", () => {
+          document.getElementById("mainGalleryImage").src = src;
+          document.querySelectorAll(".thumb").forEach(t => t.classList.remove("active"));
+          img.classList.add("active");
+        });
+        thumbRow.appendChild(img);
+      });
+
+      document.getElementById("sellerAvatar").src = DATA.seller.avatar;
+      document.getElementById("sellerName").textContent = DATA.seller.fullName;
+      document.getElementById("sellerMeta").textContent = `${DATA.seller.joined} · ${DATA.seller.activeListings} active listings`;
+
+      const saveBtn = document.getElementById("saveItemButton");
+      saveBtn.textContent = state.favorites.has(item.id) ? "Saved" : "Save Item";
+
+      document.getElementById("saveItemButton").onclick = () => {
+        if (state.favorites.has(item.id)) {
+          state.favorites.delete(item.id);
+          saveBtn.textContent = "Save Item";
+        } else {
+          state.favorites.add(item.id);
+          saveBtn.textContent = "Saved";
+        }
+      };
+
+      document.getElementById("shareItemButton").onclick = () => {
+        alert("Link copied to clipboard (prototype).");
+      };
+
+      document.getElementById("contactSellerButton").onclick = () => {
+        showPage("messages");
+      };
+
+      document.getElementById("reportItemButton").onclick = openReportModal;
+      document.getElementById("openProfileButton").onclick = () => {
+        renderProfile();
+        showPage("profile");
+      };
+    }
+
+    function renderProfile() {
+      document.getElementById("profileCover").src = DATA.seller.cover;
+      document.getElementById("profileAvatar").src = DATA.seller.avatar;
+      document.getElementById("profileName").textContent = DATA.seller.fullName;
+      document.getElementById("profileSub").textContent = `${DATA.seller.location} · ${DATA.seller.joined}`;
+      document.getElementById("profileListings").textContent = DATA.seller.activeListings;
+
+      profileGrid.innerHTML = "";
+      DATA.items.slice(0, 4).forEach(item => profileGrid.appendChild(createCard(item)));
+
+      document.getElementById("profileMessageBtn").onclick = () => showPage("messages");
+      document.getElementById("profileFollowBtn").onclick = (e) => {
+        e.target.textContent = e.target.textContent === "Follow" ? "Following" : "Follow";
+      };
+    }
+
+    function renderConversations() {
+      conversationList.innerHTML = "";
+      DATA.conversations.forEach(conv => {
+        const div = document.createElement("div");
+        div.className = "conversation-item" + (conv.id === state.currentConversationId ? " active" : "");
+        div.innerHTML = `
+          <h4>${conv.title}</h4>
+          <p>${conv.subtitle}</p>
+        `;
+        div.addEventListener("click", () => {
+          state.currentConversationId = conv.id;
+          renderConversations();
+          renderChat();
+        });
+        conversationList.appendChild(div);
+      });
+    }
+
+    function renderChat() {
+      const conv = DATA.conversations.find(c => c.id === state.currentConversationId);
+      if (!conv) return;
+      chatTitle.textContent = conv.title;
+      chatSubtitle.textContent = conv.subtitle;
+      chatThread.innerHTML = "";
+      conv.messages.forEach(msg => {
+        const div = document.createElement("div");
+        div.className = "bubble " + (msg.from === "me" ? "outgoing" : "incoming");
+        div.textContent = msg.text;
+        chatThread.appendChild(div);
+      });
+      chatThread.scrollTop = chatThread.scrollHeight;
+    }
+
+    function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      const conv = DATA.conversations.find(c => c.id === state.currentConversationId);
+      conv.messages.push({ from: "me", text });
+      chatInput.value = "";
+      renderChat();
+    }
+
+    function openReportModal() {
+      document.getElementById("reportModal").classList.add("active");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeReportModal() {
+      document.getElementById("reportModal").classList.remove("active");
+      document.body.classList.remove("modal-open");
+    }
+
+    function initAuthTabs() {
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      const panels = document.querySelectorAll(".auth-panel");
+
+      tabButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          tabButtons.forEach(b => b.classList.remove("active"));
+          panels.forEach(p => p.classList.remove("active"));
+          btn.classList.add("active");
+          document.getElementById("auth-" + btn.dataset.authTab).classList.add("active");
+        });
+      });
+    }
+
+    function bindNavigation() {
+      navLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          const page = link.dataset.nav;
+          if (page === "profile") renderProfile();
+          if (page === "messages") {
+            renderConversations();
+            renderChat();
+          }
+          showPage(page);
+        });
+      });
+    }
+
+    function initMisc() {
+      document.getElementById("heroBrowseBtn").onclick = () => showPage("discover");
+      document.getElementById("shuffleBtn").onclick = () => {
+        const shuffled = [...DATA.items].sort(() => Math.random() - 0.5);
+        renderDiscover(shuffled);
+      };
+      document.getElementById("newChatBtn").onclick = () => alert("New conversation flow can be added later.");
+      document.getElementById("sendMessageBtn").onclick = sendMessage;
+      chatInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") sendMessage();
+      });
+
+      document.getElementById("previewUploadBtn").onclick = () => openItem(101);
+      document.getElementById("publishBtn").onclick = () => alert("Item published successfully (prototype).");
+
+      document.getElementById("closeReportModal").onclick = closeReportModal;
+      document.getElementById("cancelReportBtn").onclick = closeReportModal;
+      document.getElementById("submitReportBtn").onclick = () => {
+        closeReportModal();
+        alert("Report submitted (prototype).");
+      };
+
+      document.getElementById("reportModal").addEventListener("click", (e) => {
+        if (e.target.id === "reportModal") closeReportModal();
+      });
+    }
+
+    function init() {
+      renderFilters();
+      renderDiscover(DATA.items);
+      renderItemPage();
+      renderProfile();
+      renderConversations();
+      renderChat();
+      initAuthTabs();
+      bindNavigation();
+      initMisc();
+    }
+
+    init();
+  </script>
 </body>
 </html>
