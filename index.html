@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>SilmpliRent Prototype</title>
+  <title>SimpliRent Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #f5f7fb;
@@ -27,7 +30,7 @@
     html, body {
       margin: 0;
       padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: Inter, Arial, Helvetica, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-width: 1280px;
@@ -881,6 +884,216 @@
     .hidden {
       display: none !important;
     }
+
+
+    /* Feedback improvements */
+    .advanced-filters {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.05);
+    }
+
+    .filter-control {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .filter-control label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .filter-control input,
+    .filter-control select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface-2);
+      padding: 11px 12px;
+      outline: none;
+      color: var(--text);
+    }
+
+    .rental-line {
+      margin-top: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--success);
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .trust-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #eef4ff;
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .rental-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 18px 0 22px;
+    }
+
+    .rental-info-box {
+      border: 1px solid #c7d2fe;
+      background: #eef4ff;
+      border-radius: 14px;
+      padding: 13px;
+    }
+
+    .rental-info-box .label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .rental-info-box .value {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .availability-card {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 18px;
+    }
+
+    .availability-card h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .availability-slots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .availability-slot {
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 54px 24px;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: 24px;
+    }
+
+    .empty-state h3 {
+      color: var(--text);
+      margin: 0 0 8px;
+      font-size: 22px;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+      margin-top: 40px;
+    }
+
+    .site-footer-inner {
+      width: 1200px;
+      margin: 0 auto;
+      padding: 28px 8px;
+      display: grid;
+      grid-template-columns: 1.2fr repeat(3, 1fr);
+      gap: 28px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-brand {
+      color: var(--primary);
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .footer-col h4 {
+      margin: 0 0 10px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .footer-col a {
+      display: block;
+      margin: 8px 0;
+      color: var(--muted);
+    }
+
+    .footer-col a:hover {
+      color: var(--primary);
+    }
+
+    .lightbox-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.86);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 150;
+    }
+
+    .lightbox-backdrop.active {
+      display: flex;
+    }
+
+    .lightbox-image {
+      max-width: 88vw;
+      max-height: 82vh;
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      background: white;
+      color: var(--text);
+      border: none;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
   </style>
 </head>
 <body>
@@ -889,21 +1102,22 @@
       <div class="topbar-inner">
         <div class="brand" data-nav="discover">
           <span class="brand-badge">S</span>
-          <span>SilmpliRent</span>
+          <span>SimpliRent</span>
         </div>
 
         <nav class="nav-links">
           <div class="nav-link active" data-nav="discover">Discover</div>
           <div class="nav-link" data-nav="messages">Messages</div>
           <div class="nav-link" data-nav="upload">Upload</div>
+          <div class="nav-link" data-nav="saved">Saved</div>
           <div class="nav-link" data-nav="profile">Profile</div>
-          <div class="nav-link" data-nav="auth">Auth</div>
+          <div class="nav-link" data-nav="auth">Account</div>
         </nav>
 
         <div class="topbar-actions">
-          <div class="search-pill">Search items, brands, locations</div>
+          <div class="search-pill">Search rentals, categories, locations</div>
           <button class="btn btn-secondary" data-nav="auth">Login</button>
-          <button class="btn btn-primary" data-nav="upload">Post Item</button>
+          <button class="btn btn-primary" data-nav="upload">Post Rental</button>
         </div>
       </div>
     </header>
@@ -914,10 +1128,10 @@
           <div>
             <h1>Find the right item faster.</h1>
             <p>
-              
+              Rent electronics, fashion, gaming gear and everyday essentials from trusted local users across the Baltics.
             </p>
             <div style="display:flex; gap:12px; margin-top:22px;">
-              <button class="btn btn-primary" data-nav="upload">Post new item</button>
+              <button class="btn btn-primary" data-nav="upload">Post new rental</button>
               <button class="btn btn-secondary" id="heroBrowseBtn">Browse listings</button>
             </div>
           </div>
@@ -926,15 +1140,15 @@
             <div style="font-size:14px; color:rgba(255,255,255,0.78); margin-bottom:8px;">Marketplace overview</div>
             <div style="font-size:24px; font-weight:700; margin-bottom:12px;">Today’s trending picks</div>
             <div style="color:rgba(255,255,255,0.85); line-height:1.55;">
-              Electronics, fashion and gaming gear in a single, clean browsing experience.
+              Electronics, fashion and gaming gear available for short-term rentals in one clean experience.
             </div>
             <div class="hero-stats">
               <div class="hero-stat">
-                <div class="label">Listings</div>
+                <div class="label">Rentals</div>
                 <div class="value">128</div>
               </div>
               <div class="hero-stat">
-                <div class="label">Sellers</div>
+                <div class="label">Renters</div>
                 <div class="value">34</div>
               </div>
               <div class="hero-stat">
@@ -946,17 +1160,56 @@
         </div>
 
         <div class="toolbar">
-          <h2>Discover items</h2>
+          <h2>Discover rentals</h2>
           <button class="btn btn-ghost" id="shuffleBtn">Shuffle products</button>
         </div>
 
         <div class="filters" id="filters"></div>
+
+        <div class="advanced-filters">
+          <div class="filter-control">
+            <label>Price range</label>
+            <select>
+              <option>Any price</option>
+              <option>Under €25 / day</option>
+              <option>€25–€100 / day</option>
+              <option>Over €100 / day</option>
+            </select>
+          </div>
+          <div class="filter-control">
+            <label>Location</label>
+            <select>
+              <option>All locations</option>
+              <option>Tallinn</option>
+              <option>Tartu</option>
+              <option>Riga</option>
+            </select>
+          </div>
+          <div class="filter-control">
+            <label>Availability</label>
+            <select>
+              <option>Available now</option>
+              <option>This weekend</option>
+              <option>Next week</option>
+            </select>
+          </div>
+          <div class="filter-control">
+            <label>Distance</label>
+            <select>
+              <option>Any distance</option>
+              <option>Up to 5 km</option>
+              <option>Up to 25 km</option>
+              <option>Up to 100 km</option>
+            </select>
+          </div>
+        </div>
+
         <div class="cards-grid" id="discoverGrid"></div>
       </section>
 
       <section id="page-item" class="page">
         <div class="toolbar">
-          <h2>Item page</h2>
+          <h2>Rental details</h2>
           <button class="btn btn-ghost" data-nav="discover">← Back to discover</button>
         </div>
 
@@ -994,14 +1247,38 @@
               </div>
             </div>
 
-            <div class="section-title" style="font-size:18px; margin-bottom:12px;">Description</div>
+            <div class="rental-strip">
+              <div class="rental-info-box">
+                <div class="label">Rental period</div>
+                <div class="value" id="itemRentalPeriod">Min. 3 days</div>
+              </div>
+              <div class="rental-info-box">
+                <div class="label">Deposit</div>
+                <div class="value" id="itemDeposit">€50</div>
+              </div>
+              <div class="rental-info-box">
+                <div class="label">Delivery</div>
+                <div class="value" id="itemDelivery">Pickup / delivery</div>
+              </div>
+            </div>
+
+            <div class="availability-card">
+              <h3>Availability</h3>
+              <div class="availability-slots">
+                <span class="availability-slot">Available now</span>
+                <span class="availability-slot">May 20–27</span>
+                <span class="availability-slot">June 2–15</span>
+              </div>
+            </div>
+
+            <div class="section-title" style="font-size:18px; margin:22px 0 12px;">Description</div>
             <div class="item-description" id="itemDescription"></div>
 
             <div class="action-stack">
               <button class="btn btn-primary" id="contactSellerButton">Contact Seller</button>
               <div style="display:flex; gap:12px;">
                 <button class="btn btn-secondary" id="shareItemButton">Share</button>
-                <button class="btn btn-secondary" id="saveItemButton">Save Item</button>
+                <button class="btn btn-secondary" id="saveItemButton">Save Rental</button>
                 <button class="btn btn-danger" id="reportItemButton">Report</button>
               </div>
             </div>
@@ -1011,10 +1288,29 @@
               <div class="seller-info" style="flex:1;">
                 <h3 id="sellerName">Seller name</h3>
                 <p id="sellerMeta">Member since 2023 · 8 active listings</p>
+                <div class="trust-row">
+                  <span class="trust-pill">✔ Verified renter</span>
+                  <span class="trust-pill">⭐ 4.9 rating</span>
+                  <span class="trust-pill">152 rentals</span>
+                </div>
               </div>
               <button class="btn btn-ghost" id="openProfileButton">View profile</button>
             </div>
           </div>
+        </div>
+      </section>
+
+
+      <section id="page-saved" class="page">
+        <div class="toolbar">
+          <h2>Saved rentals</h2>
+          <button class="btn btn-ghost" data-nav="discover">← Back to discover</button>
+        </div>
+        <div id="savedGrid" class="cards-grid"></div>
+        <div id="savedEmpty" class="empty-state hidden">
+          <h3>No saved rentals yet</h3>
+          <p>Use the heart button on rental cards to save items and access them later.</p>
+          <button class="btn btn-primary" data-nav="discover">Browse rentals</button>
         </div>
       </section>
 
@@ -1097,15 +1393,15 @@
 
       <section id="page-upload" class="page">
         <div class="toolbar">
-          <h2>Upload item</h2>
+          <h2>Upload rental</h2>
           <button class="btn btn-secondary" id="previewUploadBtn">Preview listing</button>
         </div>
 
         <div class="upload-layout">
           <div class="panel">
             <div class="dropzone">
-              <div style="font-size:22px; font-weight:700; margin-bottom:8px;">Drag photos here</div>
-              <div>Or use the prototype previews below.</div>
+              <div style="font-size:22px; font-weight:700; margin-bottom:8px;">Add rental photos</div>
+              <div>Upload clear photos so renters can inspect the item before booking.</div>
             </div>
 
             <div class="upload-preview">
@@ -1119,7 +1415,7 @@
           <div class="panel">
             <div class="form-field">
               <label>Title</label>
-              <input value="Sony WH-1000XM5 Headphones" />
+              <input value="Sony Headphones" />
             </div>
 
             <div class="form-grid">
@@ -1158,7 +1454,7 @@
             </div>
 
             <div style="display:flex; gap:12px; margin-top:10px;">
-              <button class="btn btn-primary" id="publishBtn">Publish Item</button>
+              <button class="btn btn-primary" id="publishBtn">Publish Rental</button>
               <button class="btn btn-secondary">Save Draft</button>
             </div>
           </div>
@@ -1176,7 +1472,7 @@
             <div class="auth-panel active" id="auth-login">
               <div class="form-field">
                 <label>Email</label>
-                <input type="email" value="Simpli@rent.pro">
+                <input type="email" value="demo@simplirent.pro">
               </div>
               <div class="form-field">
                 <label>Password</label>
@@ -1191,11 +1487,11 @@
             <div class="auth-panel" id="auth-register">
               <div class="form-field">
                 <label>Username</label>
-                <input value="rinat_design">
+                <input value="esteetika_design">
               </div>
               <div class="form-field">
                 <label>Email</label>
-                <input type="email" value="Simpli@rent.pro">
+                <input type="email" value="demo@simplirent.pro">
               </div>
               <div class="form-grid">
                 <div class="form-field">
@@ -1219,6 +1515,38 @@
         </div>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <div>
+          <div class="footer-brand">SimpliRent</div>
+          <div>Rent useful things from trusted local people. Simple, clear and safe rental experience.</div>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="#">How it works</a>
+          <a href="#">Browse rentals</a>
+          <a href="#">Post an item</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="#">Help center</a>
+          <a href="#">Contact</a>
+          <a href="#">Safety tips</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="lightbox-backdrop" id="imageLightbox">
+    <button class="lightbox-close" id="closeLightbox">×</button>
+    <img class="lightbox-image" id="lightboxImage" src="" alt="Preview image">
   </div>
 
   <div class="modal-backdrop" id="reportModal">
@@ -1266,6 +1594,11 @@
           id: 101,
           title: "Sony Headphones",
           price: 249,
+          period: "/ day",
+          minRent: "Min. 3 days",
+          deposit: "€49",
+          delivery: "Pickup / delivery",
+          availability: "Available now",
           category: "Electronics",
           condition: "Like new",
           location: "Tallinn, Estonia",
@@ -1284,6 +1617,11 @@
           id: 102,
           title: "Nike Dunk Low Retro Sneakers",
           price: 115,
+          period: "/ day",
+          minRent: "Min. 3 days",
+          deposit: "€23",
+          delivery: "Pickup / delivery",
+          availability: "Available now",
           category: "Fashion",
           condition: "Used",
           location: "Riga, Latvia",
@@ -1302,6 +1640,11 @@
           id: 103,
           title: "PlayStation 5 DualSense Controller",
           price: 59,
+          period: "/ day",
+          minRent: "Min. 3 days",
+          deposit: "€15",
+          delivery: "Pickup / delivery",
+          availability: "Available now",
           category: "Gaming",
           condition: "New",
           location: "Vilnius, Lithuania",
@@ -1320,6 +1663,11 @@
           id: 104,
           title: "Apple Watch Series 8",
           price: 289,
+          period: "/ day",
+          minRent: "Min. 3 days",
+          deposit: "€57",
+          delivery: "Pickup / delivery",
+          availability: "Available now",
           category: "Electronics",
           condition: "Excellent",
           location: "Helsinki, Finland",
@@ -1338,6 +1686,11 @@
           id: 105,
           title: "Vintage Camera Canon AE-1",
           price: 340,
+          period: "/ day",
+          minRent: "Min. 3 days",
+          deposit: "€68",
+          delivery: "Pickup / delivery",
+          availability: "Available now",
           category: "Photography",
           condition: "Used",
           location: "Tallinn, Estonia",
@@ -1356,6 +1709,11 @@
           id: 106,
           title: "Mechanical Keyboard RGB",
           price: 79,
+          period: "/ day",
+          minRent: "Min. 3 days",
+          deposit: "€15",
+          delivery: "Pickup / delivery",
+          availability: "Available now",
           category: "Gaming",
           condition: "Like new",
           location: "Tartu, Estonia",
@@ -1374,6 +1732,11 @@
           id: 107,
           title: "Minimal Desk Lamp",
           price: 34,
+          period: "/ day",
+          minRent: "Min. 3 days",
+          deposit: "€15",
+          delivery: "Pickup / delivery",
+          availability: "Available now",
           category: "Home",
           condition: "New",
           location: "Pärnu, Estonia",
@@ -1392,6 +1755,11 @@
           id: 108,
           title: "MacBook Air M2 13”",
           price: 920,
+          period: "/ day",
+          minRent: "Min. 3 days",
+          deposit: "€184",
+          delivery: "Pickup / delivery",
+          availability: "Available now",
           category: "Electronics",
           condition: "Excellent",
           location: "Tallinn, Estonia",
@@ -1411,7 +1779,7 @@
         {
           id: 1,
           title: "Cristiano Ronaldo",
-          subtitle: "Sony WH-1000XM5 Headphones",
+          subtitle: "Sony Headphones",
           messages: [
             { from: "them", text: "Hi! Are the headphones still available?" },
             { from: "me", text: "Yes, they are available." },
@@ -1450,6 +1818,8 @@
     const navLinks = document.querySelectorAll("[data-nav]");
     const discoverGrid = document.getElementById("discoverGrid");
     const profileGrid = document.getElementById("profileGrid");
+    const savedGrid = document.getElementById("savedGrid");
+    const savedEmpty = document.getElementById("savedEmpty");
     const filters = document.getElementById("filters");
     const thumbRow = document.getElementById("thumbRow");
     const conversationList = document.getElementById("conversationList");
@@ -1493,9 +1863,10 @@
         <div class="item-content">
           <div class="item-topline">
             <h3 class="item-title">${item.title}</h3>
-            <div class="item-price">€${item.price}</div>
+            <div class="item-price">€${item.price} <span style="font-size:13px; font-weight:700; color:var(--muted);">${item.period}</span></div>
           </div>
           <div class="item-meta">${item.location} · ${item.condition}<br>${item.views} views</div>
+          <div class="rental-line">${item.availability} · ${item.minRent}</div>
           <div class="item-actions">
             <span class="mini-badge">${item.badge}</span>
             <button class="icon-btn ${state.favorites.has(item.id) ? "active" : ""}" title="Save item">♥</button>
@@ -1517,6 +1888,7 @@
           state.favorites.add(item.id);
         }
         favBtn.classList.toggle("active");
+        if (state.page === "saved") renderSavedPage();
       });
 
       return card;
@@ -1539,12 +1911,15 @@
 
       document.getElementById("itemTitle").textContent = item.title;
       document.getElementById("itemMetaLine").textContent = `Listed today · ${item.location}`;
-      document.getElementById("itemPrice").textContent = `€${item.price}`;
+      document.getElementById("itemPrice").textContent = `€${item.price} ${item.period}`;
       document.getElementById("itemCategory").textContent = item.category;
       document.getElementById("itemCondition").textContent = item.condition;
       document.getElementById("itemViews").textContent = item.views;
       document.getElementById("itemLocation").textContent = item.location;
       document.getElementById("itemDescription").textContent = item.description;
+      document.getElementById("itemRentalPeriod").textContent = item.minRent;
+      document.getElementById("itemDeposit").textContent = item.deposit;
+      document.getElementById("itemDelivery").textContent = item.delivery;
       document.getElementById("mainGalleryImage").src = item.images[0];
 
       thumbRow.innerHTML = "";
@@ -1565,15 +1940,17 @@
       document.getElementById("sellerMeta").textContent = `${DATA.seller.joined} · ${DATA.seller.activeListings} active listings`;
 
       const saveBtn = document.getElementById("saveItemButton");
-      saveBtn.textContent = state.favorites.has(item.id) ? "Saved" : "Save Item";
+      saveBtn.textContent = state.favorites.has(item.id) ? "Saved" : "Save Rental";
 
       document.getElementById("saveItemButton").onclick = () => {
         if (state.favorites.has(item.id)) {
           state.favorites.delete(item.id);
-          saveBtn.textContent = "Save Item";
+          saveBtn.textContent = "Save Rental";
+          if (state.page === "saved") renderSavedPage();
         } else {
           state.favorites.add(item.id);
           saveBtn.textContent = "Saved";
+          if (state.page === "saved") renderSavedPage();
         }
       };
 
@@ -1590,6 +1967,15 @@
         renderProfile();
         showPage("profile");
       };
+    }
+
+
+    function renderSavedPage() {
+      const savedItems = DATA.items.filter(item => state.favorites.has(item.id));
+      savedGrid.innerHTML = "";
+      savedItems.forEach(item => savedGrid.appendChild(createCard(item)));
+      savedEmpty.classList.toggle("hidden", savedItems.length > 0);
+      savedGrid.classList.toggle("hidden", savedItems.length === 0);
     }
 
     function renderProfile() {
@@ -1679,6 +2065,7 @@
         link.addEventListener("click", () => {
           const page = link.dataset.nav;
           if (page === "profile") renderProfile();
+          if (page === "saved") renderSavedPage();
           if (page === "messages") {
             renderConversations();
             renderChat();
@@ -1698,6 +2085,15 @@
       document.getElementById("sendMessageBtn").onclick = sendMessage;
       chatInput.addEventListener("keydown", (e) => {
         if (e.key === "Enter") sendMessage();
+      });
+
+      document.getElementById("mainGalleryImage").onclick = () => {
+        document.getElementById("lightboxImage").src = document.getElementById("mainGalleryImage").src;
+        document.getElementById("imageLightbox").classList.add("active");
+      };
+      document.getElementById("closeLightbox").onclick = () => document.getElementById("imageLightbox").classList.remove("active");
+      document.getElementById("imageLightbox").addEventListener("click", (e) => {
+        if (e.target.id === "imageLightbox") document.getElementById("imageLightbox").classList.remove("active");
       });
 
       document.getElementById("previewUploadBtn").onclick = () => openItem(101);
@@ -1720,6 +2116,7 @@
       renderDiscover(DATA.items);
       renderItemPage();
       renderProfile();
+      renderSavedPage();
       renderConversations();
       renderChat();
       initAuthTabs();
